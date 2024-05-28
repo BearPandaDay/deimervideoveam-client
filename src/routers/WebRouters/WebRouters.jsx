@@ -5,7 +5,7 @@ export function WebRouters() {
   return (
     <Routes>
       <Route path='/videobeams' element={<Videobeams />} />
-      <Route path='/SolicitarPrestamoVideobeam' element={<SolicitarPrestamoVideobeam />} />
+      <Route path='/solicitarprestamovideobeam' element={<SolicitarPrestamoVideobeam />} />
     </Routes>
   )
 }

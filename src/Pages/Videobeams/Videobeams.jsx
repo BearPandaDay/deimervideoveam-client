@@ -48,7 +48,7 @@ export function Videobeams() {
   }
 
   useEffect(() => {
-    getVideobeams();
+    getVideobeams("videobeam");
     // console.log(values);
   }, [])
   // setKeys(a);
