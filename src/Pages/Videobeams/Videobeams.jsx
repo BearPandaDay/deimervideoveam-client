@@ -6,9 +6,9 @@ import RoomsClass from '../../api/room';
 import "./Videobeams.scss";
 
 export function Videobeams() {
-  const videobeamsclass = new VideobeamsClass;
-  const facturaprestamoclass = new FacturaprestamoClass;
-  const roomsclass = new RoomsClass;
+  const videobeamsclass = new VideobeamsClass();
+  const facturaprestamoclass = new FacturaprestamoClass();
+  const roomsclass = new RoomsClass();
   let response = "videobeam";
 
   // const [videobeams, setVideobeams] = useState([]);
@@ -21,9 +21,8 @@ export function Videobeams() {
   // }
   
   async function getVideobeams(collection) {
-    console.log("🚀 ~ getVideobeams ~ collection:", collection)
     if (collection === "videobeam") {
-      response = await videobeamsclass.getVideobeams();
+      response = await videobeamsclass.getVideobeams(null, true);
     } else if (collection === "room") {
       response = await roomsclass.getRooms();
     } else if (collection === "facturaprestamo") {
@@ -43,7 +42,7 @@ export function Videobeams() {
     //   resultValues.push(Object.values(data?data:[]));
     // })
 
-    console.log("🚀 ~ getVideobeams ~ resultValues:", resultValues)
+    // console.log("🚀 ~ getVideobeams ~ resultValues:", resultValues)
     setValues(resultValues);
   }
 

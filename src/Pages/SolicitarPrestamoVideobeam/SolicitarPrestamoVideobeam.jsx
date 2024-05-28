@@ -1,24 +1,30 @@
 import {useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import VideobeamsClass from '../../api/videobeam';
+import RoomsClass from '../../api/room';
+import FacturaprestamoClass from '../../api/facturaprestamo';
 
 export function SolicitarPrestamoVideobeam() {
-  const videobeamsclass = new VideobeamsClass;
+  const navigate = useNavigate();
+  
+  const videobeamsclass = new VideobeamsClass();
+  const roomsclass = new RoomsClass();
+  const facturaprestamoclass = new FacturaprestamoClass();
 
-  const [videobeam, setVideobeam] = useState([]);
+  const [videobeams, setVideobeams] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
   const solicitarVideobeam = async (e) => {
     e.preventDefault();
-    const date = new Date(e.target.prueba.value);
+    const date = new Date(e.target.date_prestamo.value);
 
     const resultDateLocal = getDateLocal(date);
 
-    {
-      "id_room": "2oi34uo2i34hjkjhl234j",
-      "id_videobeam": 113,
-      "sn": 113,
-      "date_prestamo": "2024-05-25T12:34:56.789Z"
-    }
+    const responsePostFacturaprsetamo = await facturaprestamoclass.postFacturaprestamo(e.target.numberroom.value, e.target.id_videobeam.value, resultDateLocal, e.target.id_videobeam.value);
+    if (!responsePostFacturaprsetamo.status) return alert(responsePostFacturaprsetamo.msg);
+
+    return navigate("/videobeam");
   }
   
   function getDateLocal(date) {
@@ -34,21 +40,39 @@ export function SolicitarPrestamoVideobeam() {
   }
   
   async function handleGetVideobeams() {
-    const response = await videobeamsclass.getVideobeams();
-    setVideobeam(response);
+    const responseGetRooms = await roomsclass.getRooms();
+
+    if (responseGetRooms.status) setRooms(responseGetRooms.msg);
+
+    const responseGetVideobeams = await videobeamsclass.getVideobeams(null, true);
+    if (responseGetVideobeams.status) setVideobeams(responseGetVideobeams.msg);
   }
   
   useEffect(() => {
     handleGetVideobeams();
-  })
+  }, []);
   
   
   
   return (
     <div>
       <form onSubmit={solicitarVideobeam}>
-        <input id="room" type="number" />
-        <input id="sn" type="datetime-local" />
+
+        <select id="numberroom" name="numberroom">
+          <option key={-1} value="" disabled selected>Select room</option>
+          {rooms.map((data, index) => {
+            return <option key={index} value={data?.numberroom}>{data?.numberroom}</option>
+          })}
+        </select>
+
+        <select id="id_videobeam" name="id_videobeam">
+          <option key={-1} value="" disabled selected>Select videobeam</option>
+          {videobeams.map((data, index) => {
+            return <option key={index} value={data?.sn}>{data?.sn}</option>
+          })}
+        </select>
+
+        <input id="date_prestamo" type="datetime-local" />
         <button type="submit">SOLICITAR VIDEOBEAM</button>
       </form>
     </div>

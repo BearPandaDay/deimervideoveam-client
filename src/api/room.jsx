@@ -1,16 +1,17 @@
-export default class FacturaprestamoClass {
+export default class RoomsClass {
 
-  async getRooms(sn, status) {
+  async getRooms(numberroom) {
     try {
       const filter = {
-        sn: '',
-        status: ''
+        numberroom: ""
       };
 
-      if (sn) filter.sn = sn;
-      if (status) filter.status = status;
+      if (numberroom) filter.id_room = numberroom;
+      // if (id_videobeam) filter.id_videobeam = id_videobeam
+      // if (date_request) filter.date_request = date_request
+      // if (date_prestamo) filter.date_prestamo = date_prestamo
       
-      const url = `http://localhost:3977/api/v1/room?sn=${filter.sn}&status=${filter.status}`;
+      const url = `http://localhost:3977/api/v1/room?numberroom=${filter.numberroom}`;
 
       const params = {
         method: "GET",
@@ -33,4 +34,34 @@ export default class FacturaprestamoClass {
       // console.log("🚀 ~ GetData ~ getVideobeams ~ error:", error)
     }
   }
+
+  // async postRooms(numberroom) {
+  //   try {
+  //     const formData = {
+  //       numberroom: numberroom
+  //     };
+
+  //     const url = `http://localhost:3977/api/v1/room`;
+      
+  //     const params = {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         // Authorization: `Bearer ${accessToken}`,
+  //       },
+  //       body: JSON.stringify(formData),
+  //     };
+
+  //     const response = await fetch(url, params);
+  //     const result = await response.json();
+
+  //     // if (!result.status) return result.status;
+  //     return result;
+
+  //   } catch (error) {
+  //     // console.log("Error en solicitud API Frontend");
+  //     console.log();
+  //     // console.log("🚀 ~ GetData ~ getVideobeams ~ error:", error)
+  //   }
+  // }
 }
