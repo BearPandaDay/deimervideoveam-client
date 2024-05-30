@@ -1,16 +1,15 @@
 export default class VideobeamsClass {
-
   async getVideobeams(sn, status) {
     try {
       const filter = {
         sn: '',
         status: ''
       };
-
-      if (sn) filter.sn = sn;
-      if (status) filter.status = status;
       
-      const url = `http://localhost:3977/api/v1/videobeam?sn=${filter.sn}&status=${filter.status}`;
+      if (sn) filter.sn = sn;
+      if (status === false || status === true) filter.status = status;
+      
+      const url = new URL(`http://localhost:3977/api/v1/videobeam?sn=${filter.sn}&status=${filter.status}`);
 
       const params = {
         method: "GET",
