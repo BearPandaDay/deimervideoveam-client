@@ -26,7 +26,7 @@ export function SolicitarPrestamoVideobeam() {
     const responsePostFacturaprsetamo = await facturaprestamoclass.postFacturaprestamo(e.target.numberroom.value, e.target.id_videobeam.value, resultDateLocal, e.target.id_videobeam.value);
     if (!responsePostFacturaprsetamo.status) return alert(responsePostFacturaprsetamo.msg);
 
-    return navigate("/videobeams");
+    return navigate("/videobeam");
   }
   
   function getDateLocal(date) {
@@ -48,6 +48,8 @@ export function SolicitarPrestamoVideobeam() {
 
     const responseGetVideobeams = await videobeamsclass.getVideobeams(null, true);
     if (responseGetVideobeams.status) setVideobeams(responseGetVideobeams.msg);
+
+    if (responseGetRooms.status) setRooms(responseGetRooms.msg);
   }
   
   useEffect(() => {
@@ -57,26 +59,30 @@ export function SolicitarPrestamoVideobeam() {
   
   
   return (
-    <div>
+    // <center>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
       <form onSubmit={solicitarVideobeam}>
 
         <select id="numberroom" name="numberroom">
-          <option key={-1} value="" disabled selected>Select room</option>
+          <option key={-1} value="" disabled selected >Select room</option>
           {rooms.map((data, index) => {
             return <option key={index} value={data?.numberroom}>{data?.numberroom}</option>
           })}
         </select>
-
+<br />
         <select id="id_videobeam" name="id_videobeam">
           <option key={-1} value="" disabled selected>Select videobeam</option>
           {videobeams.map((data, index) => {
             return <option key={index} value={data?.sn}>{data?.sn}</option>
           })}
         </select>
-
+<br />
         <input id="date_prestamo" type="datetime-local" />
+<br />
         <button type="submit">SOLICITAR VIDEOBEAM</button>
       </form>
     </div>
+    // </center>
+
   )
 }

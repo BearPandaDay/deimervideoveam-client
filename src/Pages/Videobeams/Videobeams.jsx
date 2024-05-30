@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import VideobeamsClass from '../../api/videobeam';
 import FacturaprestamoClass from '../../api/facturaprestamo';
 import RoomsClass from '../../api/room';
+import {useNavigate} from "react-router-dom";
 
 import "./Videobeams.scss";
 
 export function Videobeams() {
+  const navigate = useNavigate();
+  
   const videobeamsclass = new VideobeamsClass();
   const facturaprestamoclass = new FacturaprestamoClass();
   const roomsclass = new RoomsClass();
@@ -52,12 +55,29 @@ export function Videobeams() {
   }, [])
   // setKeys(a);
 
+  const activarVideobeam = async (e) => {
+    e.preventDefault();
+
+    const response = await videobeamsclass.updateVideobeam(e.target.sn_videobeam_update.value, true)
+    alert(response.msg)
+    navigate("/videobeam")
+  }
+
   return (
     <>
       <div>
+        <button onClick={()=> navigate('/')}>HOME</button>
+        <br />
+        <hr />
+        <br />
         <button onClick={() => getVideobeams("facturaprestamo")}>Reservas</button>
         <button onClick={() => getVideobeams("room")}>Salones</button>
         <button onClick={() => getVideobeams("videobeam")}>Videobeams</button>
+        <form onSubmit={activarVideobeam}>
+          <input type="number" name="" id="sn_videobeam_update" placeholder='Ingrese SN del videobeam' />
+          <button type="submit">Activar estado videobeam</button>
+        </form>
+        <button onClick={()=> navigate('/solicitarprestamovideobeam')}>SOLICITAR VIDEOBEAM</button>
       </div>
       <table className="my-table">
         <thead>

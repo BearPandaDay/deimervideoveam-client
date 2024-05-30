@@ -15,6 +15,11 @@ export default class FacturaprestamoClass {
       if (date_request != undefined) filter.date_request = date_request
       if (date_prestamo != undefined) filter.date_prestamo = date_prestamo
       
+      if (id_room != undefined) filter.id_room = id_room
+      if (id_videobeam != undefined) filter.id_videobeam = id_videobeam
+      if (date_request != undefined) filter.date_request = date_request
+      if (date_prestamo != undefined) filter.date_prestamo = date_prestamo
+      
       const url = `http://localhost:3977/api/v1/facturaprestamo?id_room${filter.id_room}&id_videobeam=${filter.id_videobeam}&date_request=${filter.date_request}&date_prestamo=${filter.date_prestamo}`;
 
       const params = {
