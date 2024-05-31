@@ -44,20 +44,23 @@ export default class FacturaprestamoClass {
     }
   }
 
-  async postFacturaprestamo(id_room, id_videobeam, date_prestamo, sn) {
+  async postFacturaprestamo(id_room, id_videobeam, date_prestamo, sn, name) {
     try {
       const formData = {
         id_room: '', 
         id_videobeam: '', 
-        date_prestamo: ''
+        date_prestamo: '',
+        name: ''
       };
 
       if (id_room === "") return {msg: "ID requerido", status: false}
+      if (name === "") return {msg: "NAME requerido", status: false}
 
       if (id_room) formData.id_room = id_room
       if (id_videobeam) formData.id_videobeam = id_videobeam
       if (date_prestamo) formData.date_prestamo = date_prestamo
       if (sn) formData.sn = sn
+      if (name) formData.name = name
 
       const url = `http://localhost:3977/api/v1/facturaprestamo`;
       
@@ -77,9 +80,11 @@ export default class FacturaprestamoClass {
       return result;
 
     } catch (error) {
-      // console.log("Error en solicitud API Frontend");
+      console.log("Error en solicitud API Frontend");
       console.log();
-      // console.log("🚀 ~ GetData ~ getVideobeams ~ error:", error)
+      console.log("🚀 ~ GetData ~ getVideobeams ~ error:", error);
+
+      return {msg: "ERROR EN FacturaprestamoClass.jsx", status: false};
     }
   }
 }

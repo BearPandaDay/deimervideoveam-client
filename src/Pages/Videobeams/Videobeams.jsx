@@ -17,6 +17,7 @@ export function Videobeams() {
   // const [videobeams, setVideobeams] = useState([]);
   const [keys, setKeys] = useState([]);
   const [values, setValues] = useState([]);
+  const [title, setTitle] = useState("");
   // const [search, setSearch] = useState("")
 
   // const SetSearch = (collection) => {
@@ -26,10 +27,13 @@ export function Videobeams() {
   async function getVideobeams(collection) {
     if (collection === "videobeam") {
       response = await videobeamsclass.getVideobeams();
+      setTitle("Videobeams")
     } else if (collection === "room") {
       response = await roomsclass.getRooms();
+      setTitle("Salone")
     } else if (collection === "facturaprestamo") {
       response = await facturaprestamoclass.getFacturaprestamo();
+      setTitle("Solicitudes")
     } else {
       return
     }
@@ -78,6 +82,7 @@ export function Videobeams() {
           <button type="submit">Activar estado videobeam</button>
         </form>
         <button onClick={()=> navigate('/solicitarprestamovideobeam')}>SOLICITAR VIDEOBEAM</button>
+        <h1>{title}</h1>
       </div>
       <table className="my-table">
         <thead>

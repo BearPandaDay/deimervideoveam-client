@@ -100,3 +100,8 @@ input {
   padding: 8px 15px;
   font-size: 1.2rem;
 }
+
+select {
+  padding: 8px 15px;
+  font-size: 3rem;
+}

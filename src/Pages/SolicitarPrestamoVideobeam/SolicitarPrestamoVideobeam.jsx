@@ -18,12 +18,13 @@ export function SolicitarPrestamoVideobeam() {
   const solicitarVideobeam = async (e) => {
     e.preventDefault();
 
+    if (!e.target.name.value) return alert("Nombre requerido");
     if (!e.target.date_prestamo.value) return alert("Fecha requerida");
     const date = new Date(e.target.date_prestamo.value);
 
     const resultDateLocal = getDateLocal(date);
 
-    const responsePostFacturaprsetamo = await facturaprestamoclass.postFacturaprestamo(e.target.numberroom.value, e.target.id_videobeam.value, resultDateLocal, e.target.id_videobeam.value);
+    const responsePostFacturaprsetamo = await facturaprestamoclass.postFacturaprestamo(e.target.numberroom.value, e.target.id_videobeam.value, resultDateLocal, e.target.id_videobeam.value, e.target.name.value);
     if (!responsePostFacturaprsetamo.status) return alert(responsePostFacturaprsetamo.msg);
 
     return navigate("/videobeam");
@@ -62,6 +63,10 @@ export function SolicitarPrestamoVideobeam() {
     // <center>
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
       <form onSubmit={solicitarVideobeam}>
+        <h3>Reserva tu VideoBeam</h3>
+        <input id="name" type="text" placeholder='Nombre del solicitante'/>
+<br />
+<br />
 
         <select id="numberroom" name="numberroom">
           <option key={-1} value="" disabled selected >Select room</option>
@@ -70,6 +75,7 @@ export function SolicitarPrestamoVideobeam() {
           })}
         </select>
 <br />
+<br />
         <select id="id_videobeam" name="id_videobeam">
           <option key={-1} value="" disabled selected>Select videobeam</option>
           {videobeams.map((data, index) => {
@@ -77,7 +83,9 @@ export function SolicitarPrestamoVideobeam() {
           })}
         </select>
 <br />
+<br />
         <input id="date_prestamo" type="datetime-local" />
+<br />
 <br />
         <button type="submit">SOLICITAR VIDEOBEAM</button>
       </form>

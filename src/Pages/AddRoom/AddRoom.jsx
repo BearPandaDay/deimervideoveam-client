@@ -9,10 +9,11 @@ export function AddRoom() {
   
   const [data, setData] = useState({});
   
-  const PostVideobeam = async () => {
+  const PostRoom = async () => {
     const response = await roomsclass.postRoom(data);
+    console.log("🚀 ~ PostRoom ~ response:", response)
 
-    if (!response.status) return alert("Error al guardar videobeam.");
+    if (!response.status) return alert("Error al guardar Room.");
 
     alert("Room guardado.");
     navigate("/videobeam");
@@ -33,7 +34,7 @@ export function AddRoom() {
           <input type="number" name="numberroom" />
         </form>
         <br />
-        <button onClick={PostVideobeam}>Agregar salon</button>
+        <button onClick={PostRoom}>Agregar salon</button>
       {/* </form> */}
     </div>
   )
