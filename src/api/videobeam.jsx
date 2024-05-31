@@ -63,4 +63,23 @@ export default class VideobeamsClass {
       return {msg: `Error en solicitud: ${error.code}`, status: false};
     }
   }
+
+  async postVideobeam(formData) {
+
+    console.log("🚀 ~ VideobeamsClass ~ postVideobeam ~ formData:", formData);
+    const params = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    }
+
+    const url = new URL(`http://localhost:3977/api/v1/videobeam`);
+
+    const response = await fetch(url, params);
+    const result = await response.json();
+
+    return result;
+  }
 }

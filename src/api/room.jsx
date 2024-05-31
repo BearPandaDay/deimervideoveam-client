@@ -35,33 +35,25 @@ export default class RoomsClass {
     }
   }
 
-  // async postRooms(numberroom) {
-  //   try {
-  //     const formData = {
-  //       numberroom: numberroom
-  //     };
+  async postRoom(formData) {
 
-  //     const url = `http://localhost:3977/api/v1/room`;
-      
-  //     const params = {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         // Authorization: `Bearer ${accessToken}`,
-  //       },
-  //       body: JSON.stringify(formData),
-  //     };
-
-  //     const response = await fetch(url, params);
-  //     const result = await response.json();
-
-  //     // if (!result.status) return result.status;
-  //     return result;
-
-  //   } catch (error) {
-  //     // console.log("Error en solicitud API Frontend");
-  //     console.log();
-  //     // console.log("🚀 ~ GetData ~ getVideobeams ~ error:", error)
-  //   }
-  // }
+    try {
+      const params = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      }
+  
+      const url = new URL(`http://localhost:3977/api/v1/room`);
+  
+      const response = await fetch(url, params);
+      const result = await response.json();
+  
+      return result;
+    } catch (error) {
+      return {msg: "Error al proceso de guardar postRoom.", status: false};
+    }
+  }
 }
